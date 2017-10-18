@@ -1,6 +1,8 @@
-* Heading
-** Sub-heading   sdfg
-Some text (this newline should be collapsed)
+* Heading level 1
+** Heading level 2
+*** Heading level 3
+
+Some text (*!bug!* this newline should be collapsed)
 asdf
 
 * List syntax is the same as Markdown
@@ -8,14 +10,15 @@ asdf
 - List 1
 - List 2
 
-asdf
+asdf (*!bug!* non-list breaker text should not be needed. Two empty lines should end a list.)
 
 1. Ordered
 2. Ordered
 
-
+*!bug!* No white-space following an ordered list.
 
 * Inline Code
+
 =code=
 
 == =code= ==
@@ -24,5 +27,11 @@ asdf
 * Bold
 *bold*
 *bold * asdf*
+- Press =Ctrl+B= to toggle bold.
 * Italics
 /italics / adsf/
+- Press =Ctrl+I= to toggle italics.
+* Horizontal rule
+Above the horizontal rule
+-----
+Below the horizontal rule
