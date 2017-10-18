@@ -1,6 +1,6 @@
 <!--
      #
-     # Writing is an in-browser text editor, supporting LaTeX (MathJax) and Markdown, designed to be lightweight and, unlike some other similar solutions,
+     # Writing is an in-browser text editor, supporting LaTeX (MathJax) and Org, designed to be lightweight and, unlike some other similar solutions,
      #           fast to display (no delay when writing, no flickering when writing math), as close as possible to the math.stackexchange.com editor.
      #
      # author:   Joseph Ernest (twitter: @JosephErnest)
@@ -92,7 +92,7 @@ Commands
 --------
 CTRL + D: toggle display mode (editor only, preview only or both-at-the-same-time)
 CTRL + P: print or export as PDF
-CTRL + S: save source code as .MD file
+CTRL + S: save source code as .org file
 
 CTRL + SHIFT + L: enable / disable LaTeX (i.e. math formulas)
 CTRL + SHIFT + R: toggle roman (LaTex-like) or sans-serif font
@@ -201,12 +201,12 @@ Uses <a href="https://code.google.com/archive/p/pagedown/">Pagedown</a>, <a href
              else if (e.keyCode == 83 && e.ctrlKey) {    // CTRL + S
                  var blob = new Blob([$('#wmd-input').val()], {type: 'text'});     // https://stackoverflow.com/a/33542499/1422096
                  if (window.navigator.msSaveOrOpenBlob) {
-                     window.navigator.msSaveBlob(blob, 'newfile.md');
+                     window.navigator.msSaveBlob(blob, 'newfile.org');
                  }
                  else {
                      var elem = window.document.createElement('a');
                      elem.href = window.URL.createObjectURL(blob);
-                     elem.download = 'newfile.md';
+                     elem.download = 'newfile.org';
                      document.body.appendChild(elem);
                      elem.click();
                      document.body.removeChild(elem);
