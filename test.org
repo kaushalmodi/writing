@@ -29,10 +29,20 @@ asdf (*!bug!* non-list breaker text should not be needed. Two empty lines should
 * Bold
 *bold*
 *bold * asdf*
+
 - Press =Ctrl+B= to toggle bold.
+
+*!bug!* Empty newline is required after a list to break off from the list -- That
+should not be needed.
+
+*!bug!* The below empty newline is required for the following heading to start
+  anew -- That should not be needed.
+
 * Italics
 /italics / adsf/
+
 - Press =Ctrl+I= to toggle italics.
+
 * Horizontal rule
 Above the horizontal rule
 -----
