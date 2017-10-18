@@ -1091,45 +1091,45 @@ else
 
         function _DoCodeSpans(text) {
             //
-            // * Backtick quotes are used for <code></code> spans.
+            // * Equals (=) are used for <code></code> spans.
             //
-            // * You can use multiple backticks as the delimiters if you want to
+            // * You can use multiple equals as the delimiters if you want to
             //   include literal backticks in the code span. So, this input:
             //
-            //      Just type ``foo `bar` baz`` at the prompt.
+            //      Just type ==foo =bar= baz== at the prompt.
             //
             //   Will translate to:
             //
-            //      <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
+            //      <p>Just type <code>foo =bar= baz</code> at the prompt.</p>
             //
             //   There's no arbitrary limit to the number of backticks you
-            //   can use as delimters. If you need three consecutive backticks
+            //   can use as delimiters. If you need three consecutive equals
             //   in your code, use four for delimiters, etc.
             //
-            // * You can use spaces to get literal backticks at the edges:
+            // * You can use spaces to get literal equals at the edges:
             //
-            //      ... type `` `bar` `` ...
+            //      ... type == =bar= == ...
             //
             //   Turns to:
             //
-            //      ... type <code>`bar`</code> ...
+            //      ... type <code>=bar=</code> ...
             //
 
             /*
             text = text.replace(/
-                (^|[^\\`])      // Character before opening ` can't be a backslash or backtick
-                (`+)            // $2 = Opening run of `
-                (?!`)           // and no more backticks -- match the full run
+                (^|[^\\=])      // Character before opening = can't be a backslash or equal
+                (=+)            // $2 = Opening run of =
+                (?!=)           // and no more backticks -- match the full run
                 (               // $3 = The code block
                     [^\r]*?
-                    [^`]        // attacklab: work around lack of lookbehind
+                    [^=]        // attacklab: work around lack of lookbehind
                 )
                 \2              // Matching closer
-                (?!`)
+                (?!=)
             /gm, function(){...});
             */
 
-            text = text.replace(/(^|[^\\`])(`+)(?!`)([^\r]*?[^`])\2(?!`)/gm,
+            text = text.replace(/(^|[^\\=])(=+)(?!=)([^\r]*?[^=])\2(?!=)/gm,
                 function (wholeMatch, m1, m2, m3, m4) {
                     var c = m3;
                     c = c.replace(/^([ \t]*)/g, ""); // leading whitespace
