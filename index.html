@@ -1,15 +1,21 @@
 <!--
      #
-     # Writing is an in-browser text editor, supporting LaTeX (MathJax) and Org, designed to be lightweight and, unlike some other similar solutions,
-     #           fast to display (no delay when writing, no flickering when writing math), as close as possible to the math.stackexchange.com editor.
+     # Writing is an in-browser text editor, supporting LaTeX (MathJax) and Org,
+     # designed to be lightweight and, unlike some other similar solutions, fast
+     # to display (no delay when writing, no flickering when writing math), as
+     # close as possible to the math.stackexchange.com editor.
      #
-     # author:   Joseph Ernest (twitter: @JosephErnest)
-     # url:      https://github.com/josephernest/writing
-     # license:  MIT license
-     # based on: Pagedown (https://code.google.com/archive/p/pagedown/, https://github.com/balpha/pagedown)
-     #           Pagedown Extra (https://github.com/jmcmanus/pagedown-extra)
-     #           MathJax (https://www.mathjax.org/)
-     #           StackOverflow's editor (https://gist.github.com/gdalgas/a652bce3a173ddc59f66)
+     # maintainer      : Kaushal Modi (twitter: @kaushalmodi)
+     # url             : https://github.com/kaushalmodi/writing
+     #
+     # original author : Joseph Ernest (twitter: @JosephErnest)
+     # original url    : https://github.com/josephernest/writing
+     #
+     # license         :  MIT license
+     # based on        : Pagedown (https://code.google.com/archive/p/pagedown/, https://github.com/balpha/pagedown)
+     #                   Pagedown Extra (https://github.com/jmcmanus/pagedown-extra)
+     #                   MathJax (https://www.mathjax.org/)
+     #                   StackOverflow's editor (https://gist.github.com/gdalgas/a652bce3a173ddc59f66)
      #
 -->
 
@@ -18,7 +24,7 @@
     <head>
         <link rel="icon" href="favicon.ico" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Writing</title>
+        <title>Writing in Org</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style type="text/css">
          @font-face {
@@ -85,7 +91,7 @@
         <div id="help">
             <div id="closeicon" class="unselectable">X</div>
             <pre>
-                <a href="https://github.com/josephernest/writing">Writing</a> is a lightweight distraction-free text editor.
+<a href="https://github.com/kaushalmodi/writing">Writing</a> is a lightweight distraction-free Org-mode text editor.
 Write text on the left, and the result is displayed on the right.
 
 Commands
@@ -102,12 +108,24 @@ F11: full-screen (in most browsers)
 
 Org syntax
 ---------------
-This is a [link](http://www.example.com/) and this is an ![image](imagelink.jpg).
-> This is a quote.
-* Title
-** Subtitle
+* Heading level 1
+** Heading level 2
+*** Heading level 3
+...
+
 This is /italic/ and this is *bold*.
+
+This is a [[http://www.example.com/][link-description]] and this is an image: [[http://www.example.com/image.png][http://www.example.com/image.png]].
+
 Write code with =...=.
+
+#+BEGIN_SRC emacs-lisp
+(message "This is code.")
+#+END_SRC
+
+#+BEGIN_QUOTE
+This is a quote.
+#+END_QUOTE
 
 LaTeX syntax
 ------------
@@ -120,10 +138,14 @@ Specific syntax
 
 About
 -----
-Made by <a href="https://twitter.com/JosephErnest">@JosephErnest</a>
-                <a href="https://github.com/josephernest/writing">https://github.com/josephernest/writing</a>
+Converted to support Org mode by <a href="https://twitter.com/">@kaushalmodi</a>
+<a href="https://github.com/kaushalmodi/writing">https://github.com/kaushalmodi/writing</a>
+
+Originally made by <a href="https://twitter.com/JosephErnest">@JosephErnest</a>
+<a href="https://github.com/josephernest/writing">https://github.com/josephernest/writing</a>
+
 Uses <a href="https://code.google.com/archive/p/pagedown/">Pagedown</a>, <a href="https://github.com/jmcmanus/pagedown-extra">Pagedown Extra</a>, <a href="https://www.mathjax.org/">MathJax</a>, StackOverflow's <a href="https://gist.github.com/gdalgas/a652bce3a173ddc59f66">editor</a> code and the <a href="http://cm-unicode.sourceforge.net/">Computer Modern</a> font.
-            </pre>
+</pre>
         </div>
 
         <script type="text/javascript">

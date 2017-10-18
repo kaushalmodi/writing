@@ -1,0 +1,49 @@
+* Writing
+:PROPERTIES:
+:CUSTOM_ID: writing
+:END:
+*Writing* is a lightweight distraction-free text editor, in the
+browser, for *Org mode*!
+
+/This is a fork of the original [[https://github.com/josephernest/writing][writing]] project by [[https://twitter.com/JosephErnest][@JosephErnest]], which uses
+Markdown instead of Org./
+
+Live version: [[https://org.scripter.co][Writing in Org]].
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+Just open =index.html= and that's it! There is no server code. Is that
+so simple? Yes!
+** Usage
+:PROPERTIES:
+:CUSTOM_ID: usage
+:END:
+
+- CTRL + D: Toggle display mode
+- CTRL + P: Print or export as PDF
+- CTRL + S: Save source code as .org file
+
+and a few other commands (change font, etc.) that can be found in:
+
+- CTRL+SHIFT+H or =?= bottom-left icon: Show help
+** License
+:PROPERTIES:
+:CUSTOM_ID: license
+:END:
+MIT license
+** Dependencies
+:PROPERTIES:
+:CUSTOM_ID: dependencies
+:END:
+*Writing* uses [[https://code.google.com/archive/p/pagedown/][Pagedown]], [[https://github.com/jmcmanus/pagedown-extra][Pagedown Extra]], [[https://www.mathjax.org/][MathJax]], StackOverflow's
+[[https://gist.github.com/gdalgas/a652bce3a173ddc59f66][editor code]], and the [[http://cm-unicode.sourceforge.net/][Computer Modern]] font.
+
+/Note: Some of these libraries have been slightly modified (a few lines
+of code), to make it work all together, that's why they are included in
+this package./
+* COMMENT Local Variables                                           :ARCHIVE:
+# Local Variables:
+# fill-column: 70
+# eval: (auto-fill-mode 1)
+# End:
