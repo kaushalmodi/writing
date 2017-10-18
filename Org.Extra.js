@@ -174,7 +174,10 @@
     options = options || {};
     options.extensions = options.extensions || ["all"];
     if (contains(options.extensions, "all")) {
-      options.extensions = ["tables", "fenced_code_gfm", "def_list", "attr_list", "footnotes", "smartypants", "strikethrough", "newlines"];
+      // options.extensions = ["tables", "fenced_code_gfm", "def_list", "attr_list", "footnotes", "smartypants", "strikethrough", "newlines"];
+      // Wed Oct 18 13:33:51 EDT 2017 - kmodi
+      // Do not enable the "newlines" extension.. We do not want a newline in Org source to translate to a line break in HTML!
+      options.extensions = ["tables", "fenced_code_gfm", "def_list", "attr_list", "footnotes", "smartypants", "strikethrough"];
     }
     preBlockGamutTransformations.push("wrapHeaders");
     if (contains(options.extensions, "attr_list")) {

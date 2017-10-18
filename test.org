@@ -2,8 +2,10 @@
 ** Heading level 2
 *** Heading level 3
 
-Some text (*!bug!* this newline should be collapsed)
-asdf
+Paragraphs get created
+only after an empty line.
+
+This will be a new paragraph.
 
 * List syntax is the same as Markdown
 
