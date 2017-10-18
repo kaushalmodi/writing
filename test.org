@@ -1,0 +1,28 @@
+* Heading
+** Sub-heading   sdfg
+Some text (this newline should be collapsed)
+asdf
+
+* List syntax is the same as Markdown
+
+- List 1
+- List 2
+
+asdf
+
+1. Ordered
+2. Ordered
+
+
+
+* Inline Code
+=code=
+
+== =code= ==
+
+== abc = def ==
+* Bold
+*bold*
+*bold * asdf*
+* Italics
+/italics / adsf/
