@@ -37,3 +37,8 @@ asdf (*!bug!* non-list breaker text should not be needed. Two empty lines should
 Above the horizontal rule
 -----
 Below the horizontal rule
+
+* Source blocks
+#+BEGIN_SRC emacs-lisp
+(message "foo")
+#+END_SRC
