@@ -68,10 +68,10 @@
 
     </head>
     <body class="fixedheight">
-        <script type="text/javascript" src="Markdown.Converter.js"></script>
-        <script type="text/javascript" src="Markdown.Sanitizer.js"></script>
-        <script type="text/javascript" src="Markdown.Editor.js"></script>
-        <script type="text/javascript" src="Markdown.Extra.js"></script>
+        <script type="text/javascript" src="Org.Converter.js"></script>
+        <script type="text/javascript" src="Org.Sanitizer.js"></script>
+        <script type="text/javascript" src="Org.Editor.js"></script>
+        <script type="text/javascript" src="Org.Extra.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML-full"></script>
         <script type="text/javascript" src="mathjax-editing_writing.js"></script>
         <!-- <script type="text/javascript" src="jspdf.min.js"></script> -->
@@ -260,9 +260,9 @@ Uses <a href="https://code.google.com/archive/p/pagedown/">Pagedown</a>, <a href
          var mode = 0;
          var latexenabledonce = false;
          var latexenabled = localStorage.getItem("latex") !== "0";
-         var converter = Markdown.getSanitizingConverter();
-         Markdown.Extra.init(converter);
-         var editor = new Markdown.Editor(converter, '');
+         var converter = Org.getSanitizingConverter();
+         Org.Extra.init(converter);
+         var editor = new Org.Editor(converter, '');
          var mjpd1 = new mjpd();
          togglemathjax(latexenabled);
          editor.run();
