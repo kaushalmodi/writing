@@ -505,9 +505,7 @@ else
 
             // Do Horizontal Rules:
             var replacement = "<hr />\n";
-            text = text.replace(/^[ ]{0,2}([ ]?\*[ ]?){3,}[ \t]*$/gm, replacement);
-            text = text.replace(/^[ ]{0,2}([ ]?-[ ]?){3,}[ \t]*$/gm, replacement);
-            text = text.replace(/^[ ]{0,2}([ ]?_[ ]?){3,}[ \t]*$/gm, replacement);
+            text = text.replace(/^[ ]*([ ]?-[ ]?){5}[ \t]*$/gm, replacement);
 
             text = _DoLists(text);
             text = _DoCodeBlocks(text);
