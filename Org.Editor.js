@@ -21,10 +21,10 @@
 
     var defaultsStrings = {
         bold: "Strong <strong> Ctrl+B",
-        boldexample: "strong text",
+        boldexample: "bold or strong text",
 
         italic: "Emphasis <em> Ctrl+I",
-        italicexample: "emphasized text",
+        italicexample: "italicized or emphasized text",
 
         link: "Hyperlink <a> Ctrl+L",
         linkdescription: "enter link description here",
@@ -1237,40 +1237,40 @@
                 var keyCodeStr = String.fromCharCode(keyCode).toLowerCase();
 
                 switch (keyCodeStr) {
-                    case "b":
+                    case "b":   // Ctrl + B
                         doClick(buttons.bold);
                         break;
-                    case "i":
+                    case "i":   // Ctrl + I
                         doClick(buttons.italic);
                         break;
-                    case "l":
+                    case "l":   // Ctrl + L
                         //doClick(buttons.link);
                         break;
-                    case "q":
+                    case "q":   // Ctrl + Q
                         doClick(buttons.quote);
                         break;
-                    case "k":
+                    case "k":   // Ctrl + K
                         doClick(buttons.code);
                         break;
-                    case "g":
+                    case "g":   // Ctrl + G
                         doClick(buttons.image);
                         break;
-                    case "o":
+                    case "o":   // Ctrl + O
                         doClick(buttons.olist);
                         break;
-                    case "u":
+                    case "u":   // Ctrl + U
                         //doClick(buttons.ulist);
                         break;
-                    case "h":
+                    case "h":   // Ctrl + H
                         doClick(buttons.heading);
                         break;
-                    case "r":
+                    case "r":   // Ctrl + R
                         doClick(buttons.hr);
                         break;
-                    case "y":
+                    case "y":   // Ctrl + Y
                         doClick(buttons.redo);
                         break;
-                    case "z":
+                    case "z":   // Ctrl + Z
                         if (key.shiftKey) {
                             doClick(buttons.redo);
                         }
@@ -1560,54 +1560,90 @@
     };
 
     commandProto.doBold = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 2, this.getString("boldexample"));
+        return this.doBorI(chunk, postProcessing, 1, this.getString("boldexample"));
     };
 
     commandProto.doItalic = function (chunk, postProcessing) {
-        return this.doBorI(chunk, postProcessing, 1, this.getString("italicexample"));
+        return this.doBorI(chunk, postProcessing, 0, this.getString("italicexample"));
     };
 
     // chunk: The selected region that will be enclosed with */**
-    // nStars: 1 for italics, 2 for bold
+    // bold: 1 for bold, 0 for italics
     // insertText: If you just click the button without highlighting text, this gets inserted
-    commandProto.doBorI = function (chunk, postProcessing, nStars, insertText) {
+    commandProto.doBorI = function (chunk, postProcessing, bold, insertText) {
 
         // Get rid of whitespace and fixup newlines.
         chunk.trimWhitespace();
         chunk.selection = chunk.selection.replace(/\n{2,}/g, "\n");
 
-        // Look for stars before and after.  Is the chunk already marked up?
-        // note that these regex matches cannot fail
-        var starsBefore = /(\**$)/.exec(chunk.before)[0];
-        var starsAfter = /(^\**)/.exec(chunk.after)[0];
+        var starsBefore = 0;
+        var starsAfter = 0;
+        var slashesBefore = 0;
+        var slashesAfter = 0;
 
-        var prevStars = Math.min(starsBefore.length, starsAfter.length);
+        // Bold
+        if (bold == 1) {
+            // Look for stars before and after.  Is the chunk already marked up?
+            // note that these regex matches cannot fail
+            starsBefore = /(\**$)/.exec(chunk.before)[0];
+            starsAfter = /(^\**)/.exec(chunk.after)[0];
 
-        // Remove stars if we have to since the button acts as a toggle.
-        if ((prevStars >= nStars) && (prevStars != 2 || nStars != 1)) {
-            chunk.before = chunk.before.replace(re("[*]{" + nStars + "}$", ""), "");
-            chunk.after = chunk.after.replace(re("^[*]{" + nStars + "}", ""), "");
-        }
-        else if (!chunk.selection && starsAfter) {
-            // It's not really clear why this code is necessary.  It just moves
-            // some arbitrary stuff around.
-            chunk.after = chunk.after.replace(/^([*_]*)/, "");
-            chunk.before = chunk.before.replace(/(\s?)$/, "");
-            var whitespace = re.$1;
-            chunk.before = chunk.before + starsAfter + whitespace;
-        }
-        else {
+            var prevStars = Math.min(starsBefore.length, starsAfter.length);
 
-            // In most cases, if you don't have any selected text and click the button
-            // you'll get a selected, marked up region with the default text inserted.
-            if (!chunk.selection && !starsAfter) {
-                chunk.selection = insertText;
+            if (prevStars >= 1) {
+                chunk.before = chunk.before.replace(re("[*]{" + prevStars + "}$", ""), "");
+                chunk.after = chunk.after.replace(re("^[*]{" + prevStars + "}", ""), "");
+            } else if (!chunk.selection && starsAfter) {
+                // It's not really clear why this code is necessary.  It just moves
+                // some arbitrary stuff around.
+                chunk.after = chunk.after.replace(/^(\**)/, "");
+                chunk.before = chunk.before.replace(/(\s?)$/, "");
+                var whitespace = re.$1;
+                chunk.before = chunk.before + starsAfter + whitespace;
+            } else {
+                // In most cases, if you don't have any selected text and click the button
+                // you'll get a selected, marked up region with the default text inserted.
+                if (!chunk.selection && !starsAfter) {
+                    chunk.selection = insertText;
+                }
+
+                // Add the true markup.
+                var markup = "*";
+                chunk.before = chunk.before + markup;
+                chunk.after = markup + chunk.after;
             }
+        // Italics
+        } else {
+            // Look for forward slashes before and after.  Is the chunk already marked up?
+            // note that these regex matches cannot fail
+            slashesBefore = /(\/*$)/.exec(chunk.before)[0];
+            slashesAfter = /(^\/*)/.exec(chunk.after)[0];
 
-            // Add the true markup.
-            var markup = nStars <= 1 ? "*" : "**"; // shouldn't the test be = ?
-            chunk.before = chunk.before + markup;
-            chunk.after = markup + chunk.after;
+            var prevSlashes = Math.min(slashesBefore.length, slashesAfter.length);
+
+            // Remove slashes if we have to since the button acts as a toggle.
+            if (prevSlashes >= 1) {
+                chunk.before = chunk.before.replace(re("[/]{" + prevSlashes + "}$", ""), "");
+                chunk.after = chunk.after.replace(re("^[/]{" + prevSlashes + "}", ""), "");
+            } else if (!chunk.selection && slashesAfter) {
+                // It's not really clear why this code is necessary.  It just moves
+                // some arbitrary stuff around.
+                chunk.after = chunk.after.replace(/^(\/*)/, "");
+                chunk.before = chunk.before.replace(/(\s?)$/, "");
+                var whitespace = re.$1;
+                chunk.before = chunk.before + slashesAfter + whitespace;
+            } else {
+                // In most cases, if you don't have any selected text and click the button
+                // you'll get a selected, marked up region with the default text inserted.
+                if (!chunk.selection && !slashesAfter) {
+                    chunk.selection = insertText;
+                }
+
+                // Add the true markup.
+                var markup = "/";
+                chunk.before = chunk.before + markup;
+                chunk.after = markup + chunk.after;
+            }
         }
 
         return;
