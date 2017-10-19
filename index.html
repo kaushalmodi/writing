@@ -65,6 +65,7 @@
          #help { display: none; position: fixed; top: 10%; height: 70%; left: 25%; max-width: 50%; overflow: hidden; background-color: white; border: 1px solid #ccc; padding: 15px 30px 20px 30px; overflow-y: auto; }
          #help pre {  word-wrap: break-word !important; white-space: pre-wrap !important; }
          #closeicon { position: fixed; top: 10%; left: 25%; margin: 5px 8px; color: #ccc; cursor: pointer; font-family: sans-serif; }
+         #openFileInput { position: absolute; display: none; }
 
          @media print {
              #helpicon { display: none; }
@@ -82,6 +83,7 @@
         <script type="text/javascript" src="mathjax-editing_writing.js"></script>
         <!-- <script type="text/javascript" src="jspdf.min.js"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <input id="openFileInput" type="file" />
         <div id="wmd-button-bar" class="wmd-button-bar"></div>
         <textarea id="wmd-input" class="column wmd-input" spellcheck="false"></textarea>
         <div id="wmd-preview" class="column wmd-preview">
@@ -99,6 +101,7 @@ Commands
 CTRL + D: toggle display mode (editor only, preview only or both-at-the-same-time)
 CTRL + P: print or export as PDF
 CTRL + S: save source code as .org file
+CTRL + SHIFT + O: open .org file
 
 CTRL + SHIFT + L: enable / disable LaTeX (i.e. math formulas)
 CTRL + SHIFT + R: toggle roman (LaTex-like) or sans-serif font
@@ -190,6 +193,22 @@ Uses <a href="https://code.google.com/archive/p/pagedown/">Pagedown</a>, <a href
              $('#wmd-input').val(localStorage.getItem("writing"));
          }
 
+         openFile = function(e) {         // https://stackoverflow.com/a/26298948/1422096
+             var file = e.target.files[0];
+             if (!file) {
+                 return;
+             }
+             var reader = new FileReader();
+             reader.onload = function(e) {
+                 var contents = e.target.result;
+                 $('#wmd-input').val(contents);        // display file content
+                 editor.refreshPreview();
+             };
+             reader.readAsText(file);
+         }
+
+         document.getElementById('openFileInput').addEventListener('change', openFile, false);
+
          $('#wmd-input').on('input', function() {
              localStorage.setItem("writing", $('#wmd-input').val());
          });
@@ -279,6 +298,11 @@ Uses <a href="https://code.google.com/archive/p/pagedown/">Pagedown</a>, <a href
                  latexenabled = !latexenabled;
                  localStorage.setItem("latex", latexenabled ? "1" : "0");
                  togglemathjax(latexenabled);
+                 e.preventDefault();
+                 return false;
+             }
+             else if (e.keyCode == 79 && e.ctrlKey && e.shiftKey) {    // CTRL + SHIFT + O
+                 $('#openFileInput').click();
                  e.preventDefault();
                  return false;
              }
